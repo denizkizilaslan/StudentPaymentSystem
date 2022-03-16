@@ -1,4 +1,5 @@
 ﻿using Common.DataAccess;
+using Common.Result;
 using Entities.Dtos;
 using Entities.Models;
 using System;
@@ -14,6 +15,7 @@ namespace DataAccess.Abstract
         List<Student> GetStudentList();
 
         List<StudentsWithPaymentDto> GetStudentsWithPayments();
+        ServiceResult<Student> UpdateStudent(Student student);
 
     }
 }

@@ -16,10 +16,29 @@ namespace WebAPI.Controllers
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
-        public PaymentController(IPaymentService paymentService)
+        private readonly IMapper _mapper;
+        public PaymentController(IPaymentService paymentService,IMapper mapper)
         {
             _paymentService = paymentService;
+            _mapper = mapper;
         }
+
+        /// <summary>
+        /// Öğrencilerin ödemelerini listeleyecek.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpGet("GetStudentsPayments")]
+        public IActionResult GetStudentsPayments( )
+        {
+            return Ok(_paymentService.GetStudentsPayments());
+        }
+
+        /// <summary>
+        /// Belirli tarihler arasında o öğrencinin ödemelerini görebilecek.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
 
         [HttpPost("GetStudentPayments")]
         public IActionResult GetStudentPayments(StudentDateRangeDto model)
@@ -27,16 +46,21 @@ namespace WebAPI.Controllers
             return Ok(_paymentService.GetStudentPayments(model));
         }
 
-        //[HttpPost("AddStudentPayment")]
-        //public IActionResult AddStudent(StudentPaymentDto paymentDto)
-        //{
-        //    StudentPayment model = _mapper.Map<StudentPayment>(paymentDto);
-        //    var result = _paymentService.Add(model);
-        //    if (result.Status)
-        //        return Ok(result);
-        //    else
-        //        return BadRequest(result);
-        //}
+        /// <summary>
+        /// Bir öğrenciye belirli bir miktar ödeme girebilecek
+        /// </summary>
+        /// <param name="paymentDto"></param>
+        /// <returns></returns>
+        [HttpPost("AddStudentPayment")]
+        public IActionResult AddStudent(StudentPaymentDto paymentDto)
+        {
+            StudentPayment model = _mapper.Map<StudentPayment>(paymentDto);
+            var result = _paymentService.Add(model);
+            if (result.Status)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
 
     }
 }

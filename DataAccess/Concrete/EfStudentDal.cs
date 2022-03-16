@@ -1,4 +1,5 @@
 ﻿using Common.DataAccess.EntityFramework;
+using Common.Result;
 using DataAccess.Abstract;
 using Entities.Dtos;
 using Entities.Models;
@@ -33,6 +34,28 @@ namespace DataAccess.Concrete
                 PaymentInfoDtos = p.StudentPayments.Select(py => new PaymentInfoDto { PaymentAmount = py.Total, PaymentDate = py.PaymentDate }).ToList()
             }).ToList();
             return result;
+        }
+
+        public ServiceResult<Student> UpdateStudent(Student student)
+        {
+            var result = _context.Students.Where(c => c.Id == student.Id).FirstOrDefault();
+            if (result != null)
+            {
+                result.Name = student.Name;
+                //result.SchoolId = student.SchoolId;
+                result.Surname = student.Surname;
+                result.TcNumber = student.TcNumber;
+                result.StudentNumber = student.StudentNumber;
+                result.Adress = student.Adress;
+                result.Phone = student.Phone;
+                result.Active = student.Active;
+
+                return new ServiceResult<Student>(true, "Güncelleme işlemi başarılı");
+            }
+            else
+            {
+                return new ServiceResult<Student>(false, "Öğrenci bulunamadı");
+            }
         }
     }
 }

@@ -32,5 +32,10 @@ namespace Business.Concrete
         {
             return new ServiceResult<List<StudentPayment>>(_studentPaymentDal.GetList(c => c.StudentId == studentDateRangeDto.studentId && (c.PaymentDate > studentDateRangeDto.startDate && c.PaymentDate < studentDateRangeDto.endDate)).ToList());
         }
+
+        public ServiceResult<List<StudentPayment>> GetStudentsPayments()
+        {
+            return new ServiceResult<List<StudentPayment>>(_studentPaymentDal.GetList().ToList());
+        }
     }
 }

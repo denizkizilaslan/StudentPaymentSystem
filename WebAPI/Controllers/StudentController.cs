@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
         /// <summary>
-        /// Öğrenci Listesi 
+        /// Öğrencilerin özelliklerini listeleyecek.
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetStudentList")]
@@ -32,18 +32,32 @@ namespace WebAPI.Controllers
             return Ok(_studentService.GetStudentList());
         }
 
+        /// <summary>
+        /// Özel bir öğrenciye ulaşmak istediğimizde bunun bilgilerini getirecek.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("GetStudent/{id}")]
         public IActionResult GetStudent(int id)
         {
             return Ok(_studentService.GetStudent(id));
         }
 
+        /// <summary>
+        /// Öğrencilerin ödemelerini listeleyecek
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetStudentsWithPayments")]
         public IActionResult GetStudentsWithPayments()
         {
             return Ok(_studentService.GetStudentsWithPayments());
         }
 
+        /// <summary>
+        /// Yeni bir öğrenci kaydedebilecek
+        /// </summary>
+        /// <param name="studentDto"></param>
+        /// <returns></returns>
         [HttpPost("AddStudent")]
         public IActionResult AddStudent(StudentDto studentDto)
         {
@@ -55,6 +69,11 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
         }
 
+        /// <summary>
+        /// Mevcut Öğrenciyi değiştirebilecek
+        /// </summary>
+        /// <param name="studentDto"></param>
+        /// <returns></returns>
         [HttpPost("UpdateStudent")]
         public IActionResult UpdateStudent(StudentDto studentDto)
         {

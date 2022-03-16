@@ -22,7 +22,7 @@ namespace Business.Concrete
             _studentDal = studentDal;
         }
 
-        [ValidationAspect(typeof(StudentValidator),Priority =1)]
+        [ValidationAspect(typeof(StudentValidator), Priority = 1)]
         public ServiceResult<Student> Add(Student student)
         {
             _studentDal.Add(student);
@@ -51,9 +51,8 @@ namespace Business.Concrete
         [ValidationAspect(typeof(StudentValidator), Priority = 1)]
         public ServiceResult<Student> Update(Student student)
         {
-            _studentDal.Update(student);
-            return new ServiceResult<Student>(true);
+            return _studentDal.UpdateStudent(student);
         }
-      
+
     }
 }

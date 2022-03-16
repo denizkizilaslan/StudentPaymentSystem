@@ -12,6 +12,7 @@ namespace Business.Abstract
     public interface IPaymentService
     {
         ServiceResult<StudentPayment> Add(StudentPayment studentPayment);
+        ServiceResult<List<StudentPayment>> GetStudentsPayments();
         ServiceResult<List<StudentPayment>> GetStudentPayments(StudentDateRangeDto studentDateRangeDto);
     }
 }
